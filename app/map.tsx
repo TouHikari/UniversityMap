@@ -11,6 +11,9 @@ const Map: React.FC = () => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // 检查设备类型
+    const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
     // 初始化 ECharts 实例
     const chart = echarts.init(chartRef.current!);
 
@@ -50,7 +53,7 @@ const Map: React.FC = () => {
           name: "map",
           type: "map",
           map: "china",
-          roam: true,
+          roam: !isTouchDevice,
           zoom: 1.2,
           scaleLimit: {
             min: 1,
